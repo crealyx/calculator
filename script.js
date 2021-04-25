@@ -52,6 +52,7 @@ wrapper.addEventListener('click', e => {
         }
         
     }
+    
     // Gives values to operands
     if(pressedType === 'BUTTON' && pressed.classList.value === 'number'){
         if(operator === ''){
