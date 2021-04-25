@@ -1,0 +1,42 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper{
+    background-color: rgb(102, 102, 102);
+    margin: auto;
+    width: 80%;
+    height: 350px;
+    padding: 10px;
+}
+.screen{
+    height: 50px;
+    background-color: rgb(173, 173, 173);
+    text-align: end;
+    margin: 10px 20px;
+}
+
+p{
+    font-size: 2rem;
+}
+.functionality{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px;
+}
+.functionality button{
+    margin: 0px 10px;
+}
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 10px 20px;
+    gap: 5px;
+}
+button{
+    width: 100%;
+    height: 50px;
+}
