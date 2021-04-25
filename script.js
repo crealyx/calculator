@@ -1,12 +1,18 @@
 const wrapper = document.querySelector('.wrapper');
 const display = document.querySelector('#display')
 const buttons = Array.from(document.querySelectorAll('button'))
-const operators = Array.from(document.querySelectorAll('.operator'))
+const operatorArray = Array.from(document.querySelectorAll('.operator'))
+
+
+let operators = [];
+operatorArray.forEach(operator => {
+    operators.push(operator.outerText);
+});
 
 let displayValue = '';
 let displayValue2 = '';
 let operator = '';
-
+let equation = false;
 // Math functions
 let add = (num1,num2) => parseInt(num1) + parseInt(num2);
 let subtract = (num1,num2) => parseInt(num1) - parseInt(num2);
@@ -21,56 +27,50 @@ wrapper.addEventListener('click', e => {
     
 
     if(pressedButton === 'CLEAR'){
-        displayValue = '';
-        displayValue2 = '';
+        clearAll();
         display.textContent = '';
     }
 
-
-    if(pressedType === 'BUTTON' && operator === '' && pressed.classList.value === 'number'){
-        displayValue += pressedButton;
-        display.textContent = displayValue;
+    for (let i = 0; i < operators.length; i++) {
+        if(pressedButton === operators[i]){
+            if(displayValue2 !== ''){
+                displayValue = operate(operator,displayValue,displayValue2);
+                display.textContent = displayValue;
+                displayValue2 = '';
+                operator = operators[i];
+            }else{
+                operator = operators[i];
+            }
+        }
+        
     }
-
-    if(pressedType === 'BUTTON' && operator === '+' && pressed.classList.value === 'number'){
-        displayValue2 += pressedButton;
-        display.textContent = displayValue2;
-    }
-
-    if(pressedType === 'BUTTON' && operator === '-' && pressed.classList.value === 'number'){
-        displayValue2 += pressedButton;
-        display.textContent = displayValue2;
-    }
-
     
 
-    if(pressedButton === '+'){
-        if(displayValue2 !== ''){
-            displayValue = operate(operator,displayValue,displayValue2);
+    if(pressedType === 'BUTTON' && pressed.classList.value === 'number'){
+        if(operator === ''){
+            if(equation){
+                displayValue = '';
+                equation = false;
+            }
+            displayValue += pressedButton;
             display.textContent = displayValue;
-            displayValue2 = '';
-            operator = '+';
-        }else{
-            operator = '+';
-            display.textContent = '';
         }
+        if(operator === '+' || operator === '-' || operator === '/' || operator === '*'){
+
+            display.textContent = '';
+            displayValue2 += pressedButton;
+            display.textContent = displayValue2;
+        }   
     }
 
-
-    if(pressedButton === '-'){
-        if(displayValue2 !== ''){
-            displayValue = operate(operator,displayValue,displayValue2);
-            display.textContent = displayValue;
-            displayValue2 = '';
-            operator = '-';
-        }else{
-            operator = '-';
-            display.textContent = '';
-        }
-    }
-
+    // remove displayValue if user presses a number after an equation
+    // keep displayValue if user presses a operator after an equation
     if(pressedButton === '='){
-        display.textContent = operate(operator,displayValue,displayValue2);
+        displayValue = operate(operator,displayValue,displayValue2);
+        display.textContent = displayValue;
+        displayValue2 = '';
+        operator = '';
+        equation = true;
     }
 })
 
@@ -83,3 +83,8 @@ function operate (operator,num1,num2){
     : false;
 }
 
+function clearAll() {
+    displayValue = '';
+    displayValue2 = '';
+    operator = '';
+}
