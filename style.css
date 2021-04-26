@@ -37,6 +37,7 @@ header{
     margin: 10px 20px;
     border: 2px solid rgb(1, 46, 71);
     line-height: 60px;
+    overflow: hidden;
 }
 
 p{
