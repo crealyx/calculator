@@ -7,7 +7,7 @@ const operatorArray = Array.from(document.querySelectorAll('.operator'))
 // Push operators to an array
 let operators = [];
 operatorArray.forEach(operator => {
-    operators.push(operator.outerText);
+    operators.push(operator.textContent);
 });
 
 // Initialize
