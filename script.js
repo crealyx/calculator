@@ -4,7 +4,7 @@ const decimal = document.querySelector('#decimal')
 const buttons = Array.from(document.querySelectorAll('button'))
 const operatorArray = Array.from(document.querySelectorAll('.operator'))
 
-
+// Push operators to an array
 let operators = [];
 operatorArray.forEach(operator => {
     operators.push(operator.outerText);
